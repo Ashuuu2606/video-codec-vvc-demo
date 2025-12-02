@@ -1,4 +1,4 @@
-# video-codec-vvc-demo
+
 # High-Performance VVC Decoder Components (Portfolio Demo)
 
 This repository demonstrates, in a simplified and open-source–compliant form, the kinds of
@@ -40,7 +40,7 @@ This repository focuses on small, representative kernels and driver code for tho
 ```text
 vvc-decoder-components-demo/
 │
-├── src/
+├
 │   ├── codec_types.h          # Common typedefs and small helpers
 │   ├── bitreader.c            # Simple CABAC-style bit reader demo
 │   ├── bitreader.h
@@ -51,3 +51,58 @@ vvc-decoder-components-demo/
 │   └── main.c                 # Driver: constructs a toy block and runs deblocking
 │
 └── README.md
+
+These files are intentionally minimal. They are designed to highlight code structure,
+clarity, and the way I think about codec internals and performance, rather than to be
+feature-complete.
+
+Deblocking Filter Overview
+
+The deblocking demo implements a simple luma-edge filter for 8-bit samples:
+
+Operates on a configurable edge between two 4×N regions (left/right of the edge).
+
+Uses local gradients to decide whether filtering is applied.
+
+Applies a limited-strength adjustment to samples adjacent to the edge to smooth
+visible block boundaries while preserving sharp transitions.
+
+Is implemented in a way that is friendly to later SIMD-ization (e.g., NEON) by
+using regular memory access patterns and simple arithmetic.
+
+The structure mirrors how a real VVC deblocking stage is implemented, but the constants
+and exact decision rules are intentionally simplified and not copied from any proprietary
+code or specification.
+
+Building and Running
+
+A simple build using gcc might look like:
+
+mkdir -p build
+cd build
+gcc ../main.c ../deblock.c ../bitreader.c ../cu_parser_demo.c -o vvc_demo
+./vvc_demo
+
+
+This will:
+
+Construct a small synthetic 8×8 block with an artificial “blocking” edge.
+
+Print out the block before and after deblocking.
+
+Exercise the bitreader and CU parsing skeleton to show how the components connect.
+
+You can adapt the build commands for clang, add -O2/-O3, or integrate these
+files into a larger CMake-based project if needed.
+
+Relation to VTM / VVdec
+
+The conceptual structure of the code (bitreader, CU parsing hooks, deblocking pass)
+is inspired by the open-source VTM and VVdec codebases. However:
+
+All code here is written from scratch for demonstration purposes.
+
+No proprietary or internal code from my employer is included.
+
+Exact algorithmic details (e.g., thresholds, clipping rules, prediction modes) are
+simplified and are not intended to be bit-exact with any standard or product.
