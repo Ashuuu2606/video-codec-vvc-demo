@@ -33,25 +33,6 @@ In my industry work, I contributed to:
 
 This repository focuses on small, representative kernels and driver code for those areas.
 
----
-
-## Repository Layout
-
-```text
-vvc-decoder-components-demo/
-│
-├
-│   ├── codec_types.h          # Common typedefs and small helpers
-│   ├── bitreader.c            # Simple CABAC-style bit reader demo
-│   ├── bitreader.h
-│   ├── cu_parser_demo.c       # Skeleton CU parsing and prediction hooks
-│   ├── cu_parser_demo.h
-│   ├── deblock.c              # Deblocking filter for an 8-bit luma edge
-│   ├── deblock.h
-│   └── main.c                 # Driver: constructs a toy block and runs deblocking
-│
-└── README.md
-
 These files are intentionally minimal. They are designed to highlight code structure,
 clarity, and the way I think about codec internals and performance, rather than to be
 feature-complete.
@@ -106,3 +87,24 @@ No proprietary or internal code from my employer is included.
 
 Exact algorithmic details (e.g., thresholds, clipping rules, prediction modes) are
 simplified and are not intended to be bit-exact with any standard or product.
+
+
+---
+
+## Repository Layout
+
+```text
+vvc-decoder-components-demo/
+│
+├
+│   ├── codec_types.h          # Common typedefs and small helpers
+│   ├── bitreader.c            # Simple CABAC-style bit reader demo
+│   ├── bitreader.h
+│   ├── cu_parser_demo.c       # Skeleton CU parsing and prediction hooks
+│   ├── cu_parser_demo.h
+│   ├── deblock.c              # Deblocking filter for an 8-bit luma edge
+│   ├── deblock.h
+│   └── main.c                 # Driver: constructs a toy block and runs deblocking
+│
+└── README.md
+
